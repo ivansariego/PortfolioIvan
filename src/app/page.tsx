@@ -236,9 +236,7 @@ const projects = [
     tech: ['Android Studio', 'Figma'],
     status: 'Completed',
     images: [
-      '/projects/Augrow1.png',
-      '/projects/Augrow2.png',
-      '/projects/Augrow3.png'
+      '/projects/Augrow1.png'
     ],
     fullDescription: 'AuGrow is an innovative augmented reality application designed to help farmers plan and visualize tomato crop layouts. The app uses AR technology to overlay virtual crop arrangements onto real farmland, helping optimize space utilization and crop yield.',
     features: [
