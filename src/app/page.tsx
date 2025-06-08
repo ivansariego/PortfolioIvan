@@ -4,31 +4,53 @@ import Image from "next/image";
 import '../app/globals.css';
 import { useState, useEffect } from 'react';
 
+interface Certificate {
+  id: number;
+  name: string;
+  thumbnail: string;
+  fullImage: string;
+  issuer: string;
+  dateIssued: string;
+  description: string;
+}
+
+interface Project {
+  id: number;
+  title: string;
+  description: string;
+  tech: string[];
+  status: string;
+  images: string[];
+  fullDescription: string;
+  features: string[];
+  github?: string;
+  live?: string;
+}
+
 export default function Home() {
   const [activeSection, setActiveSection] = useState('home');
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const [selectedCertificate, setSelectedCertificate] = useState(null);
-  const [selectedProject, setSelectedProject] = useState(null);
+  const [selectedCertificate, setSelectedCertificate] = useState<Certificate | null>(null);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [showResumeModal, setShowResumeModal] = useState(false);
 
-    const openCertificateModal = (certificate) => {
-      setSelectedCertificate(certificate);
-    };
+    const openCertificateModal = (certificate: Certificate) => {
+  setSelectedCertificate(certificate);
+};
 
-    const closeCertificateModal = () => {
-      setSelectedCertificate(null);
-    };
+const closeCertificateModal = () => {
+  setSelectedCertificate(null);
+};
 
-    // ADD these new functions right after:
-    const openProjectModal = (project) => {
-      setSelectedProject(project);
-    };
+const openProjectModal = (project: Project) => {
+  setSelectedProject(project);
+};
 
-    const closeProjectModal = () => {
-      setSelectedProject(null);
-    };
+const closeProjectModal = () => {
+  setSelectedProject(null);
+};
 
   useEffect(() => {
   const checkMobile = () => {
@@ -38,7 +60,7 @@ export default function Home() {
   checkMobile();
   window.addEventListener('resize', checkMobile);
   
-  const handleMouseMove = (e) => { // Remove ': MouseEvent'
+  const handleMouseMove = (e: MouseEvent) => {
     if (!isMobile) {
       setMousePosition({ x: e.clientX, y: e.clientY });
     }
@@ -75,7 +97,7 @@ export default function Home() {
     }
   };
   
-  let scrollTimeout; // Remove ': NodeJS.Timeout'
+  let scrollTimeout: NodeJS.Timeout | undefined;
   const throttledScroll = () => {
     clearTimeout(scrollTimeout);
     scrollTimeout = setTimeout(handleScroll, 10);
@@ -519,7 +541,7 @@ const projects = [
                 I focus on creating secure, efficient applications and websites that contribute in solving real-world problems.
               </p>
               <p className="text-base sm:text-lg text-gray-300 mb-6 sm:mb-8 leading-relaxed">
-                When I'm not coding, you'll find me playing basketball, jogging, reading books, watching anime, or riding my motorcycle. I'm always down for adventures and constantly exploring how technology can improve our daily lives and create meaningful impact.
+               When I&apos;m not coding, you&apos;ll find me playing basketball, jogging, reading books, watching anime, or riding my motorcycle. I&apos;m always down for adventures and constantly exploring how technology can improve our daily lives and create meaningful impact.
               </p>
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                 <a 
@@ -581,7 +603,7 @@ const projects = [
                       width={200}
                       height={150}
                       className="w-full h-full object-cover rounded-lg"
-                      onError={(e) => {
+                      onError={() => {
                         console.log('Image failed to load:', certificate.thumbnail);
                       }}
                     />
@@ -644,7 +666,7 @@ const projects = [
                             width={600}
                             height={450}
                             className="w-full h-full object-contain"
-                            onError={(e) => {
+                            onError={() => {
                               console.log('Modal image failed to load:', selectedCertificate.fullImage);
                             }}
                           />
@@ -752,8 +774,9 @@ const projects = [
                               height={400}
                               className="w-full h-full object-cover"
                               onError={(e) => {
-                                e.target.src = '/placeholder-project.png'; // fallback image
-                              }}
+                              const target = e.target as HTMLImageElement;
+                              target.src = '/placeholder-project.png'; // fallback image
+                            }}
                             />
                           </div>
                         </div>
@@ -871,8 +894,8 @@ const projects = [
                     height={200}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                     onError={(e) => {
-                      e.target.style.display = 'none';
-                    }}
+                    (e.target as HTMLImageElement).src = '/placeholder-project.png'; // fallback image
+                  }}
                   />
                 )}
                 <div className="absolute top-3 sm:top-4 right-3 sm:right-4">
@@ -909,10 +932,10 @@ const projects = [
     <section id="contact" className="py-16 sm:py-20 px-4 sm:px-6">
       <div className="max-w-4xl mx-auto text-center">
         <h2 className="text-3xl sm:text-4xl font-bold mb-6 sm:mb-8 smooth-entrance">
-          Let's Work <span className="text-blue-400">Together</span>
+         Let&apos;s Work <span className="text-blue-400">Together</span>
         </h2>
         <p className="text-lg sm:text-xl text-gray-300 mb-8 sm:mb-12 px-4 smooth-entrance" style={{ animationDelay: '0.2s' }}>
-          From lines of code to winding trails, I'm always chasing the next big adventure — ready when you are
+          From lines of code to winding trails, I&apos;m always chasing the next big adventure — ready when you are
         </p>
         
         <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center mb-8 sm:mb-12 px-4 smooth-entrance" style={{ animationDelay: '0.4s' }}>
