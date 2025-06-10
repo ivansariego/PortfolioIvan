@@ -543,7 +543,7 @@ const projects = [
               </p>
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                 <a 
-                  href="/resume.pdf" 
+                  href="/Sariego.pdf" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="px-6 py-2.5 bg-blue-600 rounded-lg button-hover text-sm sm:text-base font-medium flex items-center justify-center gap-2"
